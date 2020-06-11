@@ -1,2 +1,2 @@
 # CoreDialog
-[Android] I'm so for the Android dialog's boilerplate code
+[Android] I'm so lazy for the Android dialog's boilerplate code
