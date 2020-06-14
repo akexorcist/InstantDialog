@@ -3,15 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
-        applicationId "com.akexorcist.library.coredialog.sample"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.akexorcist.library.instantdialog.sample"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,13 +26,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation project(path: ':dialog-core')
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${library.kotlin_version}"
+    implementation "androidx.core:core-ktx:${library.core_ktx}"
+    implementation "androidx.appcompat:appcompat:${library.app_compat}"
+    implementation "com.google.android.material:material:${library.material_design}"
+    implementation "androidx.constraintlayout:constraintlayout:${library.constraint_layout}"
+    testImplementation "junit:junit:${library.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${library.androidx_junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${library.androidx_espresso}"
 
+    implementation project(path: ':dialog-all')
 }

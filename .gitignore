@@ -84,3 +84,5 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 .idea
+app/release
+.DS_Store
