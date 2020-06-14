@@ -3,4 +3,7 @@
 
     <string name="confirm_update">Update Now</string>
     <string name="cancel_update">Later</string>
+    <string name="three_choice_positive">Yes</string>
+    <string name="three_choice_negative">Never</string>
+    <string name="three_choice_neutral">No</string>
 </resources>

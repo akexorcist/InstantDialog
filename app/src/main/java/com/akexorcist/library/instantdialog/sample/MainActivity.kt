@@ -10,6 +10,8 @@ import com.akexorcist.library.instantdialog.confirm.ConfirmDialog
 import com.akexorcist.library.instantdialog.confirm.ConfirmDialogViewModel
 import com.akexorcist.library.instantdialog.loading.LoadingDialog
 import com.akexorcist.library.instantdialog.loading.LoadingDialogViewModel
+import com.akexorcist.library.instantdialog.sample.custom.ThreeChoiceDialog
+import com.akexorcist.library.instantdialog.sample.custom.ThreeChoiceDialogViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,14 +25,8 @@ class MainActivity : AppCompatActivity() {
     private val loadingDialogViewModel: LoadingDialogViewModel by lazy {
         ViewModelProvider(this).get(LoadingDialogViewModel::class.java)
     }
-
-    companion object {
-        private const val TAG_DEFAULT_LOADING_DIALOG = "tag_default_loading_dialog"
-        private const val TAG_DEFAULT_ALERT_DIALOG = "tag_default_alert_dialog"
-        private const val TAG_DEFAULT_CONFIRM_DIALOG = "tag_default_confirm_dialog"
-        private const val TAG_CUSTOM_ALERT_DIALOG = "tag_custom_alert_dialog"
-        private const val TAG_CUSTOM_CONFIRM_DIALOG = "tag_custom_confirm_dialog"
-        private const val TAG_CUSTOM_LOADING_DIALOG = "tag_custom_loading_dialog"
+    private val threeChoiceDialogViewModel: ThreeChoiceDialogViewModel by lazy {
+        ViewModelProvider(this).get(ThreeChoiceDialogViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         showCustomAlertDialogButton.setOnClickListener { showCustomAlertDialog() }
         showCustomConfirmDialogButton.setOnClickListener { showCustomConfirmDialog() }
         showCustomLoadingDialogButton.setOnClickListener { showCustomLoadingDialog() }
+        showThreeChoiceDialogButton.setOnClickListener { showThreeChoiceDialog() }
     }
 
     private fun bindDialogEvent() {
@@ -88,6 +85,22 @@ class MainActivity : AppCompatActivity() {
             } else if (it.tag == TAG_CUSTOM_LOADING_DIALOG) {
                 showMessage("Custom loading dismissed")
             }
+        })
+
+        threeChoiceDialogViewModel.positiveButtonClicked.observe(this, Observer {
+            it.dismiss()
+            showMessage("Thank you! we will bring you to Google Play")
+
+        })
+
+        threeChoiceDialogViewModel.neutralButtonClicked.observe(this, Observer {
+            it.dismiss()
+            showMessage("Well, let us ask you in the next time")
+        })
+
+        threeChoiceDialogViewModel.negativeButtonClicked.observe(this, Observer {
+            it.dismiss()
+            showMessage("OK, we won't ask you again")
         })
     }
 
@@ -145,7 +158,24 @@ class MainActivity : AppCompatActivity() {
         }.build().show(supportFragmentManager, TAG_CUSTOM_LOADING_DIALOG)
     }
 
+    private val showThreeChoiceDialog = {
+        ThreeChoiceDialog.Builder().apply {
+            title = "Do you like our app?"
+            message = "Please tell us by give a review in Google Play"
+        }.build().show(supportFragmentManager, TAG_THREE_CHOICE_DIALOG)
+    }
+
     private fun showMessage(message: String) {
         Snackbar.make(window.decorView.rootView, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val TAG_DEFAULT_LOADING_DIALOG = "tag_default_loading_dialog"
+        private const val TAG_DEFAULT_ALERT_DIALOG = "tag_default_alert_dialog"
+        private const val TAG_DEFAULT_CONFIRM_DIALOG = "tag_default_confirm_dialog"
+        private const val TAG_CUSTOM_ALERT_DIALOG = "tag_custom_alert_dialog"
+        private const val TAG_CUSTOM_CONFIRM_DIALOG = "tag_custom_confirm_dialog"
+        private const val TAG_CUSTOM_LOADING_DIALOG = "tag_custom_loading_dialog"
+        private const val TAG_THREE_CHOICE_DIALOG = "tag_three_choice_dialog"
     }
 }

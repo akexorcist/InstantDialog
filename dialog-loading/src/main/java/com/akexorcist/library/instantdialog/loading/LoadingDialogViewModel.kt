@@ -9,7 +9,7 @@ import com.akexorcist.instantdialog.core.SingleLiveEvent
 class LoadingDialogViewModel : ViewModel() {
     val dialogDismiss = SingleLiveEvent<DialogEvent>()
 
-    fun onDialogDismiss(tag: String?, bundle: Bundle?, dialog: DialogFragment) {
-        dialogDismiss(DialogEvent(tag, bundle, dialog))
+    fun onDialogDismiss(dialog: DialogFragment, tag: String?, bundle: Bundle?) {
+        dialogDismiss(DialogEvent(dialog, tag, bundle))
     }
 }

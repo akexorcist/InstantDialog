@@ -53,7 +53,25 @@ class LoadingDialog : CoreDialogFragment<LoadingDialogViewModel>(),
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        viewModel.onDialogDismiss(tag, bundle, this)
+        viewModel.onDialogDismiss(this, tag, bundle)
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    class Builder {
+        var title: String? = null
+        var titleResourceId: Int = 0
+        var message: String? = null
+        var messageResourceId: Int = 0
+        var layoutResourceId: Int = R.layout.library_layout_dialog_loading
+        var bundle: Bundle? = null
+        fun build() = newInstance(
+            title,
+            titleResourceId,
+            message,
+            messageResourceId,
+            layoutResourceId,
+            bundle
+        )
     }
 
     companion object {
@@ -74,23 +92,5 @@ class LoadingDialog : CoreDialogFragment<LoadingDialogViewModel>(),
                 putBundle(BundleOption.EXTRA_BUNDLE, bundle)
             }
         }
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    class Builder {
-        var title: String? = null
-        var titleResourceId: Int = 0
-        var message: String? = null
-        var messageResourceId: Int = 0
-        var layoutResourceId: Int = R.layout.library_layout_dialog_loading
-        var bundle: Bundle? = null
-        fun build() = newInstance(
-            title,
-            titleResourceId,
-            message,
-            messageResourceId,
-            layoutResourceId,
-            bundle
-        )
     }
 }

@@ -10,11 +10,11 @@ class AlertDialogViewModel : ViewModel() {
     val neutralButtonClicked = SingleLiveEvent<DialogEvent>()
     val dialogDismiss = SingleLiveEvent<DialogEvent>()
 
-    fun onNeutralButtonClick(tag: String?, bundle: Bundle?, dialog: DialogFragment) {
-        neutralButtonClicked(DialogEvent(tag, bundle, dialog))
+    fun onNeutralButtonClick(dialog: DialogFragment, tag: String?, bundle: Bundle?) {
+        neutralButtonClicked(DialogEvent(dialog, tag, bundle))
     }
 
-    fun onDialogDismiss(tag: String?, bundle: Bundle?, dialog: DialogFragment) {
-        dialogDismiss(DialogEvent(tag, bundle, dialog))
+    fun onDialogDismiss(dialog: DialogFragment, tag: String?, bundle: Bundle?) {
+        dialogDismiss(DialogEvent(dialog, tag, bundle))
     }
 }

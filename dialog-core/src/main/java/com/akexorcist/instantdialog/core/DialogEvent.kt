@@ -6,9 +6,9 @@ import androidx.fragment.app.DialogFragment
 import kotlinx.android.parcel.Parcelize
 
 class DialogEvent(
+    var dialog: DialogFragment,
     var tag: String?,
-    var bundle: Bundle?,
-    var dialog: DialogFragment
+    var bundle: Bundle?
 ) {
     fun dismiss() {
         dialog.dismiss()

@@ -44,10 +44,10 @@ class ConfirmDialog : CoreDialogFragment<ConfirmDialogViewModel>(),
         super<IconOption>.bindView(parent)
         super<BundleOption>.bindView(parent)
         positiveButton.setOnClickListener {
-            viewModel.onPositiveButtonClick(tag, bundle, this)
+            viewModel.onPositiveButtonClick(this, tag, bundle)
         }
         negativeButton.setOnClickListener {
-            viewModel.onNegativeButtonClick(tag, bundle, this)
+            viewModel.onNegativeButtonClick(this, tag, bundle)
         }
     }
 
@@ -71,7 +71,35 @@ class ConfirmDialog : CoreDialogFragment<ConfirmDialogViewModel>(),
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        viewModel.onDialogDismiss(tag, bundle, this)
+        viewModel.onDialogDismiss(this, tag, bundle)
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    class Builder {
+        var title: String? = null
+        var titleResourceId: Int = 0
+        var message: String? = null
+        var messageResourceId: Int = 0
+        var positiveMessage: String? = null
+        var positiveMessageResourceId: Int = android.R.string.ok
+        var negativeMessage: String? = null
+        var negativeMessageResourceId: Int = android.R.string.cancel
+        var iconResourceId: Int = 0
+        var layoutResourceId: Int = R.layout.library_layout_dialog_confirm
+        var bundle: Bundle? = null
+        fun build() = newInstance(
+            title,
+            titleResourceId,
+            message,
+            messageResourceId,
+            positiveMessage,
+            positiveMessageResourceId,
+            negativeMessage,
+            negativeMessageResourceId,
+            iconResourceId,
+            layoutResourceId,
+            bundle
+        )
     }
 
     companion object {
@@ -102,33 +130,5 @@ class ConfirmDialog : CoreDialogFragment<ConfirmDialogViewModel>(),
                 putBundle(BundleOption.EXTRA_BUNDLE, bundle)
             }
         }
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    class Builder {
-        var title: String? = null
-        var titleResourceId: Int = 0
-        var message: String? = null
-        var messageResourceId: Int = 0
-        var positiveMessage: String? = null
-        var positiveMessageResourceId: Int = android.R.string.ok
-        var negativeMessage: String? = null
-        var negativeMessageResourceId: Int = android.R.string.cancel
-        var iconResourceId: Int = 0
-        var layoutResourceId: Int = R.layout.library_layout_dialog_confirm
-        var bundle: Bundle? = null
-        fun build() = newInstance(
-            title,
-            titleResourceId,
-            message,
-            messageResourceId,
-            positiveMessage,
-            positiveMessageResourceId,
-            negativeMessage,
-            negativeMessageResourceId,
-            iconResourceId,
-            layoutResourceId,
-            bundle
-        )
     }
 }
