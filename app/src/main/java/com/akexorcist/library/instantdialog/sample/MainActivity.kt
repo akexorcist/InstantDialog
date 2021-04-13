@@ -2,7 +2,6 @@ package com.akexorcist.library.instantdialog.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.akexorcist.library.instantdialog.alertdialog.alert.AlertDialog
 import com.akexorcist.library.instantdialog.alertdialog.alert.AlertDialogViewModel
@@ -12,10 +11,13 @@ import com.akexorcist.library.instantdialog.loading.LoadingDialog
 import com.akexorcist.library.instantdialog.loading.LoadingDialogViewModel
 import com.akexorcist.library.instantdialog.sample.custom.ThreeChoiceDialog
 import com.akexorcist.library.instantdialog.sample.custom.ThreeChoiceDialogViewModel
+import com.akexorcist.library.instantdialog.sample.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
     private val confirmDialogViewModel: ConfirmDialogViewModel by lazy {
         ViewModelProvider(this).get(ConfirmDialogViewModel::class.java)
     }
@@ -31,24 +33,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         bindDialogEvent()
         bindView()
     }
 
     private fun bindView() {
-        showDefaultAlertDialogButton.setOnClickListener { showDefaultAlertDialog() }
-        showDefaultConfirmDialogButton.setOnClickListener { showDefaultConfirmDialog() }
-        showDefaultLoadingDialogButton.setOnClickListener { showDefaultLoadingDialog() }
-        showCustomAlertDialogButton.setOnClickListener { showCustomAlertDialog() }
-        showCustomConfirmDialogButton.setOnClickListener { showCustomConfirmDialog() }
-        showCustomLoadingDialogButton.setOnClickListener { showCustomLoadingDialog() }
-        showThreeChoiceDialogButton.setOnClickListener { showThreeChoiceDialog() }
+        binding.showDefaultAlertDialogButton.setOnClickListener { showDefaultAlertDialog() }
+        binding.showDefaultConfirmDialogButton.setOnClickListener { showDefaultConfirmDialog() }
+        binding.showDefaultLoadingDialogButton.setOnClickListener { showDefaultLoadingDialog() }
+        binding.showCustomAlertDialogButton.setOnClickListener { showCustomAlertDialog() }
+        binding.showCustomConfirmDialogButton.setOnClickListener { showCustomConfirmDialog() }
+        binding.showCustomLoadingDialogButton.setOnClickListener { showCustomLoadingDialog() }
+        binding.showThreeChoiceDialogButton.setOnClickListener { showThreeChoiceDialog() }
     }
 
     private fun bindDialogEvent() {
-        alertDialogViewModel.neutralButtonClicked.observe(this, Observer {
+        alertDialogViewModel.neutralButtonClicked.observe(this, {
             it.dismiss()
             if (it.tag == TAG_DEFAULT_ALERT_DIALOG) {
                 showMessage("Greeting message accepted")
@@ -57,11 +59,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        alertDialogViewModel.dialogDismiss.observe(this, Observer {
+        alertDialogViewModel.dialogDismiss.observe(this, {
             showMessage("Dialog dismissed")
         })
 
-        confirmDialogViewModel.positiveButtonClicked.observe(this, Observer {
+        confirmDialogViewModel.positiveButtonClicked.observe(this, {
             it.dismiss()
             if (it.tag == TAG_DEFAULT_CONFIRM_DIALOG) {
                 showMessage("Delete the data confirmed")
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        confirmDialogViewModel.negativeButtonClicked.observe(this, Observer {
+        confirmDialogViewModel.negativeButtonClicked.observe(this, {
             it.dismiss()
             if (it.tag == TAG_DEFAULT_CONFIRM_DIALOG) {
                 showMessage("Delete the data cancelled")
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        loadingDialogViewModel.dialogDismiss.observe(this, Observer {
+        loadingDialogViewModel.dialogDismiss.observe(this, {
             if (it.tag == TAG_DEFAULT_LOADING_DIALOG) {
                 showMessage("Default loading dismissed")
             } else if (it.tag == TAG_CUSTOM_LOADING_DIALOG) {
@@ -87,18 +89,18 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        threeChoiceDialogViewModel.positiveButtonClicked.observe(this, Observer {
+        threeChoiceDialogViewModel.positiveButtonClicked.observe(this, {
             it.dismiss()
             showMessage("Thank you! we will bring you to Google Play")
 
         })
 
-        threeChoiceDialogViewModel.neutralButtonClicked.observe(this, Observer {
+        threeChoiceDialogViewModel.neutralButtonClicked.observe(this, {
             it.dismiss()
             showMessage("Well, let us ask you in the next time")
         })
 
-        threeChoiceDialogViewModel.negativeButtonClicked.observe(this, Observer {
+        threeChoiceDialogViewModel.negativeButtonClicked.observe(this, {
             it.dismiss()
             showMessage("OK, we won't ask you again")
         })
