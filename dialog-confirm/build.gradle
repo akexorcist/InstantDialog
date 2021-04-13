@@ -4,14 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka-android'
 
 android {
-    compileSdkVersion compile_sdk_version
-    buildToolsVersion build_tools_version
+    compileSdkVersion project.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
-        versionCode version_code
-        versionName version_name
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode project.versionCode
+        versionName project.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -32,7 +31,7 @@ dokka {
 
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
-    api project(path: ':dialog-core')
+    implementation 'com.akexorcist:instant-dialog-core:1.0.0'
 }
 
 ext {
@@ -48,7 +47,7 @@ ext {
     siteUrl = 'https://github.com/akexorcist/InstantDialog'
     gitUrl = 'https://github.com/akexorcist/InstantDialog.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'akexorcist'
     developerName = 'Somkiat Khitwongwattana'
