@@ -40,29 +40,9 @@ dependencies {
     androidTestApi "androidx.test.espresso:espresso-core:${library.androidx_espresso}"
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'instant-dialog-core'
-
-    publishedGroupId = 'com.akexorcist'
+project.ext {
     libraryName = 'InstantDialog-Core'
-    artifact = 'instant-dialog-core'
-
-    libraryDescription = 'Because I\'m so boring about the Android dialog\'s boilerplate code'
-
-    siteUrl = 'https://github.com/akexorcist/InstantDialog'
-    gitUrl = 'https://github.com/akexorcist/InstantDialog.git'
-
-    libraryVersion = '1.0.0'
-
-    developerId = 'akexorcist'
-    developerName = 'Somkiat Khitwongwattana'
-    developerEmail = 'akexorcist@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    artifactId = 'instant-dialog-core'
 }
 
-//apply from: '../publish/installv1.gradle'
-//apply from: '../publish/bintrayv1.gradle'
+//apply from: '../publish/mavencentral.gradle'

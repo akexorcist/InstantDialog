@@ -37,29 +37,9 @@ dependencies {
     api project(path: ':dialog-loading')
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'instant-dialog-all'
-
-    publishedGroupId = 'com.akexorcist'
+project.ext {
     libraryName = 'InstantDialog-All'
-    artifact = 'instant-dialog-all'
-
-    libraryDescription = 'Because I\'m so boring about the Android dialog\'s boilerplate code'
-
-    siteUrl = 'https://github.com/akexorcist/InstantDialog'
-    gitUrl = 'https://github.com/akexorcist/InstantDialog.git'
-
-    libraryVersion = '1.0.0'
-
-    developerId = 'akexorcist'
-    developerName = 'Somkiat Khitwongwattana'
-    developerEmail = 'akexorcist@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    artifactId = 'instant-dialog-all'
 }
 
-apply from: '../publish/installv1.gradle'
-apply from: '../publish/bintrayv1.gradle'
+//apply from: '../publish/mavencentral.gradle'
